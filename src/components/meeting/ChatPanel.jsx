@@ -3,7 +3,74 @@ import { useMeeting } from '@/context/MeetingContext';
 import { useSocket } from '@/context/SocketContext';
 import { useAuth } from '@/context/AuthContext';
 import { MdSend, MdChatBubbleOutline, MdClose } from 'react-icons/md';
+import { Globe } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { translateText } from '@/utils/geminiTranslator';
+
+// Message Item component to handle asynchronous translation using Gemini
+function ChatMessageItem({ msg, targetLang, isMe, showHeader, timeStr }) {
+  const [translated, setTranslated] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (targetLang === 'original' || msg.type === 'system' || !msg.message) {
+      setTranslated(null);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    translateText(msg.message, targetLang)
+      .then((res) => {
+        setTranslated(res);
+        setLoading(false);
+      })
+      .catch(() => {
+        setTranslated(null);
+        setLoading(false);
+      });
+  }, [msg.message, targetLang, msg.type]);
+
+  const displayMessage = loading 
+    ? "Translating..." 
+    : (translated || msg.message);
+
+  return (
+    <div className={`flex flex-col ${showHeader ? 'mt-1.5' : 'mt-[1px]'} ${isMe ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 duration-300`}>
+      {/* Timing above the component */}
+      {showHeader && (
+        <div className="mb-1 px-2">
+          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{timeStr}</span>
+        </div>
+      )}
+
+      <div className={`max-w-[85%] px-4 py-3 rounded-[1.5rem] shadow-sm transition-all ${isMe
+        ? 'bg-[#fe583e] text-white rounded-tr-sm'
+        : 'bg-gray-100 dark:bg-white/5 text-gray-800 dark:text-gray-200 rounded-tl-sm border border-gray-200/50 dark:border-white/5'
+        }`}>
+        {/* Person name inside - only for others */}
+        {showHeader && !isMe && (
+          <div className="text-[10px] font-black uppercase tracking-wider mb-1.5 opacity-60 text-left">
+            {msg.senderName || 'Guest'}
+          </div>
+        )}
+        {/* Message below the name */}
+        <div className={`text-[13px] font-medium leading-relaxed break-words overflow-hidden ${isMe ? 'text-right' : 'text-left'}`}>
+          {loading ? (
+            <span className="opacity-75 italic animate-pulse">{displayMessage}</span>
+          ) : (
+            displayMessage
+          )}
+        </div>
+        {targetLang !== 'original' && !loading && translated && translated !== msg.message && (
+          <div className={`text-[9px] mt-1 flex items-center gap-1 font-semibold ${isMe ? 'text-white/60 justify-end' : 'text-gray-400 dark:text-gray-500'}`}>
+            <Globe size={10} /> translated
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function ChatPanel({ onSendMessage, roomId }) {
   const { state, dispatch } = useMeeting();
@@ -11,6 +78,7 @@ export default function ChatPanel({ onSendMessage, roomId }) {
   const { user } = useAuth();
   const { chatMessages, typingUsers } = state;
   const [input, setInput] = useState('');
+  const [targetLang, setTargetLang] = useState('original');
   const bottomRef = useRef(null);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [chatMessages]);
@@ -30,19 +98,35 @@ export default function ChatPanel({ onSendMessage, roomId }) {
     <TooltipProvider>
       <div className="bg-background rounded-3xl flex flex-col h-full overflow-hidden shadow-2xl border border-gray-200 dark:border-white/10 transition-all duration-500">
         {/* Header */}
-        <div className="px-5 py-4 flex items-center justify-between">
+        <div className="px-5 py-4 flex items-center justify-between border-b border-gray-100 dark:border-white/5">
           <div className="flex items-center gap-3">
             <div className="text-gray-900 dark:text-white">
               <MdChatBubbleOutline size={20} />
             </div>
             <h3 className="text-[13px] text-gray-900 dark:text-white font-bold tracking-tight leading-none">Room Chat</h3>
           </div>
-          <button
-            onClick={() => dispatch({ type: 'TOGGLE_CHAT' })}
-            className="w-8 h-8 rounded-xl bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-all active:scale-95 border border-transparent hover:border-gray-200 dark:hover:border-white/10"
-          >
-            <MdClose size={20} />
-          </button>
+          
+          <div className="flex items-center gap-2">
+            {/* Translation Select Dropdown */}
+            <select
+              value={targetLang}
+              onChange={(e) => setTargetLang(e.target.value)}
+              className="text-[11px] bg-gray-50 dark:bg-white/5 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10 rounded-lg px-2.5 py-1 focus:outline-none focus:ring-1 focus:ring-[#fe583e]"
+            >
+              <option value="original">Original</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="ja">日本語</option>
+            </select>
+
+            <button
+              onClick={() => dispatch({ type: 'TOGGLE_CHAT' })}
+              className="w-8 h-8 rounded-xl bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white flex items-center justify-center transition-all active:scale-95 border border-transparent hover:border-gray-200 dark:hover:border-white/10"
+            >
+              <MdClose size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Messages */}
@@ -70,36 +154,14 @@ export default function ChatPanel({ onSendMessage, roomId }) {
             const timeStr = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             return (
-              <div key={i} className={`flex flex-col ${showHeader ? 'mt-1.5' : 'mt-[1px]'} ${isMe ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 duration-300`}>
-                {/* Timing above the component */}
-                {showHeader && (
-                  <div className="mb-1 px-2">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{timeStr}</span>
-                  </div>
-                )}
-
-                <div className={`max-w-[85%] px-4 py-3 rounded-[1.5rem] shadow-sm transition-all ${isMe
-                  ? 'bg-gray-900 text-white rounded-tr-sm'
-                  : 'bg-gray-100 dark:bg-white/5 text-gray-800 dark:text-gray-200 rounded-tl-sm border border-gray-200/50 dark:border-white/5'
-                  }`}>
-                  {/* Person name inside - only for others */}
-                  {showHeader && !isMe && (
-                    <div className="text-[10px] font-black uppercase tracking-wider mb-1.5 opacity-60 text-left">
-                      {msg.senderName || 'Guest'}
-                    </div>
-                  )}
-                  {/* Message below the name */}
-                  <div className={`text-[13px] font-medium leading-relaxed break-words overflow-hidden ${isMe ? 'text-right' : 'text-left'}`}>
-                    {msg.message}
-                  </div>
-                </div>
-
-                {!showHeader && (
-                  <span className="text-[8px] text-gray-400 font-black mt-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {timeStr}
-                  </span>
-                )}
-              </div>
+              <ChatMessageItem
+                key={i}
+                msg={msg}
+                targetLang={targetLang}
+                isMe={isMe}
+                showHeader={showHeader}
+                timeStr={timeStr}
+              />
             );
           })}
           {typingUsers.length > 0 && (

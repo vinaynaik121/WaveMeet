@@ -28,9 +28,9 @@ export default function ToastAlert({ notification, onDismiss }) {
 
   return (
     <div className={`fixed top-[158px] left-[90px] z-[100] transition-all duration-500 ease-out ${visible ? 'translate-x-0 opacity-100 scale-100' : '-translate-x-8 opacity-0 scale-90'}`}>
-      <div className="bg-white dark:bg-[#121222] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-gray-100 dark:border-white/10 p-4 min-w-[320px] max-w-[400px] flex items-start gap-4 transition-all duration-500 relative">
+      <div className="bg-white dark:bg-[#262626] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-gray-100 dark:border-white/10 p-4 min-w-[320px] max-w-[400px] flex items-start gap-4 transition-all duration-500 relative">
         {/* Pointer arrow */}
-        <div className="absolute left-[-6px] top-5 w-3 h-3 bg-white dark:bg-[#121222] border-l border-b border-gray-100 dark:border-white/10 rotate-45" />
+        <div className="absolute left-[-6px] top-5 w-3 h-3 bg-white dark:bg-[#262626] border-l border-b border-gray-100 dark:border-white/10 rotate-45" />
         
         <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-500/10 flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100/50 dark:border-gray-500/20">
           <Icon className="text-gray-500 dark:text-gray-400" size={24} />

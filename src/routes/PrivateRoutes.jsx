@@ -14,10 +14,13 @@ const MeetingRoom = lazy(() => import('../pages/MeetingRoom'));
 const MeetingEndPage = lazy(() => import('../pages/MeetingEndPage'));
 
 function MeetingLayout({ children }) {
+  const location = useLocation();
+  const isMeetingRoom = location.pathname.includes('/meeting/');
+
   return (
     <div className="h-screen flex bg-background transition-colors duration-500 overflow-hidden">
       <MeetingSidebar />
-      <div className="flex-1 h-full overflow-y-auto custom-scrollbar">
+      <div className={`flex-1 h-full ${isMeetingRoom ? 'overflow-hidden' : 'overflow-y-auto custom-scrollbar'}`}>
         {children}
       </div>
     </div>

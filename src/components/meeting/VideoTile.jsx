@@ -21,7 +21,7 @@ export default function VideoTile({ stream, userName, photoURL, isMuted, isCamer
 
   return (
     <div
-      className={`relative rounded-[2rem] overflow-hidden shadow-2xl group transition-all duration-500 border border-gray-200 dark:border-white/5 ${isFeatured ? 'w-full h-full bg-[#fafafa] dark:bg-[#0a0a1a]' : 'h-full bg-[#fafafa] dark:bg-white/5 backdrop-blur-sm'}`}
+      className={`relative rounded-[2rem] overflow-hidden shadow-2xl group transition-all duration-500 border border-gray-200 dark:border-white/5 ${isFeatured ? 'w-full h-full bg-[#fafafa] dark:bg-[#1C1C1C]' : 'h-full bg-[#fafafa] dark:bg-white/5 backdrop-blur-sm'}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -34,7 +34,7 @@ export default function VideoTile({ stream, userName, photoURL, isMuted, isCamer
           className={`w-full h-full transition-transform duration-700 ${isFeatured ? 'object-contain bg-[#050505]' : 'object-cover'}`}
         />
       ) : (
-        <div className={`w-full h-full flex items-center justify-center relative overflow-hidden ${isFeatured ? 'bg-[#fafafa] dark:bg-[#0a0a1a]' : 'bg-[#fafafa] dark:bg-gray-900/40'}`}>
+        <div className={`w-full h-full flex items-center justify-center relative overflow-hidden ${isFeatured ? 'bg-[#fafafa] dark:bg-[#1C1C1C]' : 'bg-[#fafafa] dark:bg-gray-900/40'}`}>
           {photoURL && (
             <div
               className="absolute inset-0 opacity-40 blur-3xl scale-125 transition-transform duration-1000 group-hover:scale-150"

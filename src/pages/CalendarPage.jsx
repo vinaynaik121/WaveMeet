@@ -99,7 +99,7 @@ export default function CalendarPage() {
           <div className="flex items-center gap-4">
             <button 
               onClick={() => nav(-1)} 
-              className="w-11 h-11 rounded-2xl bg-white dark:bg-[#121222] hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/5 transition-all active:scale-95"
+              className="w-11 h-11 rounded-2xl bg-white dark:bg-[#262626] hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/5 transition-all active:scale-95"
             >
               <MdArrowBack size={22} className="text-gray-600 dark:text-gray-400" />
             </button>
@@ -122,7 +122,7 @@ export default function CalendarPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Calendar Grid */}
-          <div className="lg:col-span-2 bg-white dark:bg-[#121222] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5 transition-all duration-500">
+          <div className="lg:col-span-2 bg-white dark:bg-[#262626] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5 transition-all duration-500">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-xl text-gray-900 dark:text-white font-bold">{MO[mo]} {yr}</h2>
               <div className="flex gap-2">
@@ -166,7 +166,7 @@ export default function CalendarPage() {
           </div>
 
           {/* Agenda Side Panel */}
-          <div className="bg-white dark:bg-[#121222] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5 transition-all duration-500 overflow-y-auto max-h-[600px] custom-scrollbar">
+          <div className="bg-white dark:bg-[#262626] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5 transition-all duration-500 overflow-y-auto max-h-[600px] custom-scrollbar">
             <h3 className="text-lg text-gray-900 dark:text-white font-bold mb-6">
               {selDay ? `${MO[mo]} ${selDay}` : 'Upcoming Meetings'}
             </h3>
@@ -242,7 +242,7 @@ export default function CalendarPage() {
         {/* Schedule Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-            <div className="bg-white dark:bg-[#121222] rounded-[3rem] p-10 w-full max-w-md shadow-2xl border border-white/10 animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+            <div className="bg-white dark:bg-[#262626] rounded-[3rem] p-10 w-full max-w-md shadow-2xl border border-white/10 animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-gray-900 dark:bg-white/10 flex items-center justify-center text-white shadow-xl">

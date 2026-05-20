@@ -27,7 +27,7 @@ export default function MeetingControls({ onLeave, onToggleMute, onToggleCamera,
               {isMuted ? <MdMicOff size={24} /> : <MdMic size={24} />}
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top" className="bg-[#121222] border-white/10 text-white font-medium">{isMuted ? 'Unmute' : 'Mute'}</TooltipContent>
+          <TooltipContent side="top" className="bg-[#262626] border-white/10 text-white font-medium">{isMuted ? 'Unmute' : 'Mute'}</TooltipContent>
         </Tooltip>
 
         {/* Camera */}
@@ -38,7 +38,7 @@ export default function MeetingControls({ onLeave, onToggleMute, onToggleCamera,
               {isCameraOff ? <MdVideocamOff size={24} /> : <MdVideocam size={24} />}
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top" className="bg-[#121222] border-white/10 text-white font-medium">{isCameraOff ? 'Turn on camera' : 'Turn off camera'}</TooltipContent>
+          <TooltipContent side="top" className="bg-[#262626] border-white/10 text-white font-medium">{isCameraOff ? 'Turn on camera' : 'Turn off camera'}</TooltipContent>
         </Tooltip>
 
         {/* Reactions - Centered in the middle of controls */}
@@ -52,7 +52,7 @@ export default function MeetingControls({ onLeave, onToggleMute, onToggleCamera,
               <MdScreenShare size={24} />
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top" className="bg-[#121222] border-white/10 text-white font-medium">Share Screen</TooltipContent>
+          <TooltipContent side="top" className="bg-[#262626] border-white/10 text-white font-medium">Share Screen</TooltipContent>
         </Tooltip>
 
         {/* Divider */}
@@ -67,7 +67,7 @@ export default function MeetingControls({ onLeave, onToggleMute, onToggleCamera,
               <span className="font-bold text-sm">Leave</span>
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top" className="bg-[#121222] border-white/10 text-white font-medium">Leave Meeting</TooltipContent>
+          <TooltipContent side="top" className="bg-[#262626] border-white/10 text-white font-medium">Leave Meeting</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>

@@ -73,7 +73,7 @@ export default function NotificationDropdown({ isOpen, onClose }) {
   return ReactDOM.createPortal(
     <div
       ref={ref}
-      className="fixed left-24 top-20 w-80 bg-white dark:bg-[#121222] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-[9999] overflow-hidden animate-in fade-in slide-in-from-left-2 duration-200"
+      className="fixed left-24 top-20 w-80 bg-white dark:bg-[#262626] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 z-[9999] overflow-hidden animate-in fade-in slide-in-from-left-2 duration-200"
     >
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-white/5">
         <h3 className="text-sm font-bold text-gray-900 dark:text-white font-karla">Notifications</h3>

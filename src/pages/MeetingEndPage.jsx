@@ -29,7 +29,7 @@ export default function MeetingEndPage() {
   const strokeDashoffset = strokeDasharray * (1 - progressPct / 100);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0a0a1a] font-karla flex items-center justify-center p-6 transition-colors duration-500 overflow-hidden relative">
+    <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#1C1C1C] font-karla flex items-center justify-center p-6 transition-colors duration-500 overflow-hidden relative">
       
       {/* Top Left Timer & Status */}
       <div className="absolute top-8 left-8 flex items-center gap-4 bg-white/80 dark:bg-white/5 backdrop-blur-xl px-5 py-3 rounded-2xl border border-white/20 shadow-xl animate-in slide-in-from-left duration-700">
@@ -64,7 +64,7 @@ export default function MeetingEndPage() {
         </div>
       </div>
 
-      <div className="max-w-md w-full bg-white dark:bg-[#121222] rounded-[3rem] p-12 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] dark:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] border border-gray-100 dark:border-white/5 text-center animate-in zoom-in-95 duration-500 relative overflow-hidden">
+      <div className="max-w-md w-full bg-white dark:bg-[#262626] rounded-[3rem] p-12 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] dark:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] border border-gray-100 dark:border-white/5 text-center animate-in zoom-in-95 duration-500 relative overflow-hidden">
         
         {/* Background Accent */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-gray-500/10 rounded-full blur-3xl" />

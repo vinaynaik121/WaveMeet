@@ -107,15 +107,13 @@ function Hero() {
         <BlurIn delay={0.3} className="w-full mt-8 sm:mt-10 lg:mt-12">
           <div className="flex items-center w-full max-w-lg bg-transparent border border-gray-300 dark:border-gray-700 rounded-full p-1.5">
             <Dialog open={dialogOpen} onOpenChange={handleDialogChange}>
-              <DialogTrigger asChild>
-                <button
-                  onClick={startNewMeeting}
-                  className="bg-[#FE583E] hover:bg-[#E04D36] text-white py-2.5 px-5 sm:px-6 rounded-full flex justify-center items-center gap-2 transform-gpu font-medium transition-colors"
-                >
-                  <PlusIcon className="w-5 sm:w-5" />
-                  <span className="text-sm sm:text-base whitespace-nowrap">New Meeting</span>
-                </button>
-              </DialogTrigger>
+              <button
+                onClick={startNewMeeting}
+                className="bg-[#FE583E] hover:bg-[#E04D36] text-white py-2.5 px-5 sm:px-6 rounded-full flex justify-center items-center gap-2 transform-gpu font-medium transition-colors"
+              >
+                <PlusIcon className="w-5 sm:w-5" />
+                <span className="text-sm sm:text-base whitespace-nowrap">New Meeting</span>
+              </button>
               <DialogContent className="dark:bg-[#121212] p-8 max-w-sm sm:max-w-md border-none shadow-2xl">
                 {isJoinMeeting ? <JoinMeetingContent /> :
                   <div className="w-full">

@@ -40,7 +40,7 @@ export function DateTimePicker({ date, setDate }) {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row bg-white dark:bg-[#121222] rounded-[1.5rem] overflow-hidden border border-gray-100 dark:border-white/10 shadow-2xl max-w-fit mx-auto">
+    <div className="flex flex-col sm:flex-row bg-white dark:bg-[#262626] rounded-[1.5rem] overflow-hidden border border-gray-100 dark:border-white/10 shadow-2xl max-w-fit mx-auto">
       <div className="p-1 border-r border-gray-100 dark:border-white/5 flex items-center justify-center w-full sm:w-[260px]">
         <Calendar
           mode="single"

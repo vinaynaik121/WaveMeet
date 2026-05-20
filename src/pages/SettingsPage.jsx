@@ -186,7 +186,7 @@ export default function SettingsPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => fromRoomId ? nav(`/meeting/${fromRoomId}`) : nav(-1)}
-              className="w-11 h-11 rounded-2xl bg-white dark:bg-[#121222] hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/5 transition-all active:scale-95"
+              className="w-11 h-11 rounded-2xl bg-white dark:bg-[#262626] hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/5 transition-all active:scale-95"
             >
               <MdArrowBack size={22} className="text-gray-600 dark:text-gray-400" />
             </button>
@@ -213,7 +213,7 @@ export default function SettingsPage() {
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
-                  className={`w-full flex items-center gap-4 px-5 py-3.5 rounded-2xl text-sm transition-all duration-300 ${tab === t.id ? 'bg-gray-900 dark:bg-white/10 text-white shadow-xl shadow-black/10 translate-x-1' : 'text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#121222] hover:text-gray-900'}`}
+                  className={`w-full flex items-center gap-4 px-5 py-3.5 rounded-2xl text-sm transition-all duration-300 ${tab === t.id ? 'bg-gray-900 dark:bg-white/10 text-white shadow-xl shadow-black/10 translate-x-1' : 'text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-[#262626] hover:text-gray-900'}`}
                 >
                   <I size={22} />
                   <span className="font-bold tracking-tight">{t.label}</span>
@@ -223,7 +223,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 bg-white dark:bg-[#121222] rounded-2xl p-8 md:p-10 shadow-2xl border border-gray-100 dark:border-white/5 transition-all duration-500">
+          <div className="flex-1 bg-white dark:bg-[#262626] rounded-2xl p-8 md:p-10 shadow-2xl border border-gray-100 dark:border-white/5 transition-all duration-500">
             {tab === 'profile' && (
               <form onSubmit={saveProfile} className="animate-in fade-in duration-500">
                 <h3 className="text-xl font- text-gray-900 dark:text-white font-bold mb-8">Your Profile</h3>

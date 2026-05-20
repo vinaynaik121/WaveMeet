@@ -133,6 +133,18 @@ export default function MeetingRoom() {
     );
   }
 
+  // Loading state while joining the room (acquiring media and socket connection)
+  if (!state.joined && !state.isWaiting && !state.waitingRejected) {
+    return (
+      <div className="h-screen w-full flex flex-col items-center justify-center bg-background gap-4 animate-in fade-in duration-300">
+        <ClassicLoader />
+        <p className="text-gray-500 dark:text-gray-400 font-bold text-sm tracking-wide animate-pulse">
+          Joining meeting room...
+        </p>
+      </div>
+    );
+  }
+
   // Waiting room screen
   if (state.isWaiting) {
     return (

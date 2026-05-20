@@ -117,7 +117,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-6">
             <button
               onClick={() => fromRoomId ? navigate(`/meeting/${fromRoomId}`) : navigate(-1)}
-              className="w-12 h-12 rounded-2xl bg-white dark:bg-[#121222] hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/5 transition-all active:scale-95"
+              className="w-12 h-12 rounded-2xl bg-white dark:bg-[#262626] hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/5 transition-all active:scale-95"
             >
               <MdArrowBack size={24} className="text-gray-600 dark:text-gray-400" />
             </button>
@@ -157,7 +157,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
           {/* New Meeting */}
-          <div className="bg-white dark:bg-[#121222] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5">
+          <div className="bg-white dark:bg-[#262626] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5">
             <h3 className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-widest ml-1">Create Meeting</h3>
             <button
               onClick={initiateNewMeeting}
@@ -174,7 +174,7 @@ export default function Dashboard() {
           </div>
 
           {/* Join Meeting */}
-          <div className="bg-white dark:bg-[#121222] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5">
+          <div className="bg-white dark:bg-[#262626] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5">
             <h3 className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-widest ml-1">Join Meeting</h3>
             <div className="flex gap-3">
               <div className="flex-1 relative group">
@@ -203,7 +203,7 @@ export default function Dashboard() {
         </div>
 
         {/* Upcoming Meetings */}
-        <div className="bg-white dark:bg-[#121222] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5">
+        <div className="bg-white dark:bg-[#262626] rounded-[2rem] p-8 shadow-2xl shadow-black/5 border border-gray-100 dark:border-white/5">
           <div className="flex items-center justify-between mb-8">
             <h3 className="text-lg font-black text-gray-900 dark:text-white">Upcoming Meetings</h3>
             <button
@@ -225,7 +225,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {meetings.slice(0, 6).map((m) => (
                 <div key={m._id} className="flex items-center gap-4 p-5 rounded-3xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-gray-500/30 transition-all">
-                  <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#121222] shadow-sm flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#262626] shadow-sm flex items-center justify-center flex-shrink-0">
                     <MdVideocam className="text-gray-900 dark:text-white" size={24} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -257,7 +257,7 @@ export default function Dashboard() {
         {/* ──── Leave Existing Meeting Warning Modal ──── */}
         {showWarning.active && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4 animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#121222] rounded-[2.5rem] p-10 w-full max-w-md shadow-2xl border border-white/10 relative animate-in zoom-in-95 duration-300">
+            <div className="bg-white dark:bg-[#262626] rounded-[2.5rem] p-10 w-full max-w-md shadow-2xl border border-white/10 relative animate-in zoom-in-95 duration-300">
               <button
                 onClick={() => setShowWarning({ active: false, type: null, data: null })}
                 className="absolute top-6 right-6 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 transition-all"

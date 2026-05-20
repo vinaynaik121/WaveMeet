@@ -36,7 +36,7 @@ export default function ReactionPicker({ roomId }) {
               <span className="group-hover:scale-125 transition-transform">😊</span>
             </button>
           </TooltipTrigger>
-          <TooltipContent side="top" className="bg-[#121222] text-white border-white/10">Reactions</TooltipContent>
+          <TooltipContent side="top" className="bg-[#262626] text-white border-white/10">Reactions</TooltipContent>
         </Tooltip>
 
         {open && (
@@ -51,7 +51,7 @@ export default function ReactionPicker({ roomId }) {
                     {item.emoji}
                   </button>
                 </TooltipTrigger>
-                <TooltipContent className="bg-[#121222] text-white text-[10px] font-bold border-white/10">{item.label}</TooltipContent>
+                <TooltipContent className="bg-[#262626] text-white text-[10px] font-bold border-white/10">{item.label}</TooltipContent>
               </Tooltip>
             ))}
           </div>

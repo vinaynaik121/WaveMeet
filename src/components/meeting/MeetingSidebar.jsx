@@ -44,10 +44,30 @@ export default function MeetingSidebar({ roomId: propRoomId }) {
 
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
+  const isInsideMeetingRoom = location.pathname.includes('/meeting/');
+
+  const handleCreateMeeting = async () => {
+    try {
+      const res = await fetch(`${API}/api/meetings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hostId: user.uid, title: 'Quick Meeting' }),
+      });
+      const { meeting } = await res.json();
+      if (state.localStream) {
+        state.localStream.getTracks().forEach(t => t.stop());
+      }
+      dispatch({ type: 'RESET' });
+      navigate(`/meeting/${meeting.roomId}`);
+    } catch (e) {
+      console.error('[SIDEBAR_CREATE_MEETING]', e);
+    }
+  };
+
   const topItems = [
     { id: 'dashboard', icon: MdDashboard, label: 'Dashboard', action: () => navigate('/dashboard', { state: { fromRoomId: roomId } }), active: location.pathname === '/dashboard' },
     { id: 'notifications', icon: MdNotifications, label: 'Notifications', action: () => setNotifOpen(!notifOpen), badge: unreadCount, active: notifOpen },
-    { id: 'video', icon: MdVideocam, label: 'Meeting', action: () => roomId && navigate(`/meeting/${roomId}`), active: !!roomId && !notifOpen && location.pathname.includes('/meeting') },
+    ...(!isInsideMeetingRoom ? [{ id: 'video', icon: MdVideocam, label: 'Create Meeting', action: handleCreateMeeting, active: false }] : []),
     { id: 'calendar', icon: MdCalendarToday, label: 'Calendar', action: () => navigate('/calendar'), active: location.pathname === '/calendar' },
     { id: 'settings', icon: MdSettings, label: 'Settings', action: () => navigate(`/settings?roomId=${roomId}`), active: location.pathname === '/settings' },
   ];
@@ -114,7 +134,7 @@ export default function MeetingSidebar({ roomId: propRoomId }) {
                       {item.active && !isExpanded && <div className="absolute left-[-16px] w-1.5 h-5 bg-gray-400 dark:bg-white/40 rounded-full animate-in fade-in duration-500" />}
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="right" className="bg-[#121222] border-white/10 text-white font-medium">
+                  <TooltipContent side="right" className="bg-[#262626] border-white/10 text-white font-medium">
                     {item.label}
                   </TooltipContent>
                 </Tooltip>
@@ -146,7 +166,7 @@ export default function MeetingSidebar({ roomId: propRoomId }) {
                     {item.active && !isExpanded && <div className="absolute left-[-16px] w-1.5 h-5 bg-gray-400 dark:bg-white/40 rounded-full animate-in fade-in duration-500" />}
                   </button>
                 </TooltipTrigger>
-                <TooltipContent side="right" className="bg-[#121222] border-white/10 text-white font-medium">
+                <TooltipContent side="right" className="bg-[#262626] border-white/10 text-white font-medium">
                   {item.label}
                 </TooltipContent>
               </Tooltip>

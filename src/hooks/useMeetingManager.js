@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
-import { generateRoomId } from '@/lib/utils';
+import { auth } from '@/lib/firebase';
+
+const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 /**
  * Orchestrates the meeting entry lifecycle (creation and joining).
@@ -13,7 +15,7 @@ export function useMeetingManager() {
     const navigate = useNavigate();
     const { user } = useAuth();
 
-    // Modal and form view states
+    // Controlled inputs
     const [dialogOpen, setDialogOpen] = useState(false);
     const [isJoinMeeting, setIsJoinMeeting] = useState(false);
     const [showSignIn, setShowSignIn] = useState(false);
@@ -24,12 +26,22 @@ export function useMeetingManager() {
     const [error, setError] = useState('');
 
     /**
-     * Optimistically provisions a new room. If unauthenticated, defers creation
+     * Provisions a new room in the backend database. If unauthenticated, defers creation
      * by surfacing the auth modal. `handleAuthSuccess` will complete the flow.
      */
-    const startNewMeeting = useCallback(() => {
+    const startNewMeeting = useCallback(async () => {
         if (user) {
-            navigate(`/meeting/${generateRoomId()}`);
+            try {
+                const res = await fetch(`${API}/api/meetings`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hostId: user.uid, title: 'Quick Meeting' }),
+                });
+                const { meeting } = await res.json();
+                navigate(`/meeting/${meeting.roomId}`);
+            } catch (e) {
+                console.error('[MEETING_CREATE_HERO]', e);
+            }
         } else {
             setShowSignIn(true);
             setDialogOpen(true);
@@ -90,9 +102,11 @@ export function useMeetingManager() {
      * Recovery handler executed post-authentication.
      * Resolves any cached state (pending joins or creations) mapped prior to login.
      */
-    const handleAuthSuccess = useCallback(() => {
+    const handleAuthSuccess = useCallback(async () => {
         setDialogOpen(false);
         setShowSignIn(false);
+
+        const currentUser = auth.currentUser;
 
         if (isJoinMeeting) {
             const pendingCode = localStorage.getItem('pendingMeetingCode');
@@ -102,10 +116,22 @@ export function useMeetingManager() {
                 navigate(`/meeting/${pendingCode}`);
             }
         } else {
-            // Recover a specific room or generate a fresh one if the user just clicked "New Meeting"
-            const roomId = localStorage.getItem('pendingRoomId') || generateRoomId();
-            localStorage.removeItem('pendingRoomId');
-            navigate(`/meeting/${roomId}`);
+            if (currentUser) {
+                try {
+                    const res = await fetch(`${API}/api/meetings`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ hostId: currentUser.uid, title: 'Quick Meeting' }),
+                    });
+                    const { meeting } = await res.json();
+                    navigate(`/meeting/${meeting.roomId}`);
+                } catch (e) {
+                    console.error('[MEETING_CREATE_POST_AUTH]', e);
+                    navigate('/dashboard');
+                }
+            } else {
+                navigate('/dashboard');
+            }
         }
     }, [isJoinMeeting, navigate]);
 
