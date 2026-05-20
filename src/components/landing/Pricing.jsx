@@ -24,7 +24,7 @@ function Pricing() {
     },
     {
       plan: 'Enterprise',
-      price: 1499,
+      price: 'Custom',
       features: ['Everything in Pro', 'Up to 500 participants per meeting', 'Custom Branding & Domain', 'Dedicated Account Manager', 'SLA & 99.9% Uptime Guarantee', 'Advanced Analytics'],
       isPopular: false
     }

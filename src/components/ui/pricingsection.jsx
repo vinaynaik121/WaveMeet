@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const PricingPlan = ({ plan, price, features, isPopular, billingCycle }) => {
-  const displayPrice = billingCycle === 'yearly' ? Math.floor(price * 0.8 * 12) : price;
+  const isCustomPrice = typeof price === 'string';
+  const displayPrice = !isCustomPrice
+    ? (billingCycle === 'yearly' ? Math.floor(price * 0.8 * 12) : price)
+    : price;
   const period = billingCycle === 'yearly' ? '/ year' : '/ month';
 
   return (
@@ -23,10 +26,18 @@ const PricingPlan = ({ plan, price, features, isPopular, billingCycle }) => {
         {plan}
       </p>
       <div className="flex items-end mt-6">
-        <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
-          ₹{displayPrice}
-        </p>
-        <p className="ml-1 text-gray-500 text-sm">{period}</p>
+        {isCustomPrice ? (
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">
+            {displayPrice}
+          </p>
+        ) : (
+          <>
+            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl">
+              ₹{displayPrice}
+            </p>
+            <p className="ml-1 text-gray-500 text-sm">{period}</p>
+          </>
+        )}
       </div>
       <hr className="my-8 border-gray-200 dark:border-gray-800" />
     </div>
@@ -41,7 +52,7 @@ const PricingPlan = ({ plan, price, features, isPopular, billingCycle }) => {
     <button
       className={`mt-6 w-full py-3 px-8 rounded-full transition-all duration-300 ease-in-out font-semibold tracking-wide text-sm sm:text-base bg-[#fe583e] text-white hover:bg-[#e04a32]`}
     >
-      Start Now
+      {isCustomPrice ? 'Contact Sales' : 'Start Now'}
     </button>
   </div>
   );
